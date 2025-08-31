@@ -2,7 +2,6 @@ import express from 'express';
 const router = express.Router();
 import Person from '../models/person.js';
 
-// GET all persons
 router.get('/', async (req, res) => {
     try {
         const persons = await Person.find({});
@@ -12,7 +11,6 @@ router.get('/', async (req, res) => {
     }
 });
 
-// GET a single person by ID
 router.get('/:id', async (req, res) => {
     try {
         const person = await Person.findById(req.params.id);
@@ -25,12 +23,10 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// CREATE a new person
 router.post('/', async (req, res) => {
     try {
         const { name, age, gender, mobileNumber } = req.body;
         
-        // Basic validation
         if (!name || !age || !gender || !mobileNumber) {
             return res.status(400).json({ message: 'All fields are required' });
         }
@@ -55,12 +51,10 @@ router.post('/', async (req, res) => {
     }
 });
 
-// UPDATE a person by ID
 router.put('/:id', async (req, res) => {
     try {
         const { name, age, gender, mobileNumber } = req.body;
         
-        // Basic validation
         if (!name || !age || !gender || !mobileNumber) {
             return res.status(400).json({ message: 'All fields are required' });
         }
@@ -87,7 +81,6 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-// DELETE a person by ID
 router.delete('/:id', async (req, res) => {
     try {
         const deletedPerson = await Person.findByIdAndDelete(req.params.id);
